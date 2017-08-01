@@ -26,6 +26,11 @@
   - No `yield` only `return` (isn't supposed to be generator, in instructions)
 
 6. Ones
+  - IMPORTANT: only modify the line
+  ```python
+  ones = None
+  ```
+  NOT the function `test_ones`
   - `ones = Stream(1, ones)` won't work because `ones` isn't defined
   - `ones = Stream(1, lambda: ones)` will work because `lambda: ones` only evaluates `ones` when called
 
