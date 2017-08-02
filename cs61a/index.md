@@ -13,6 +13,7 @@
 
 - General: remember the semicolons!
 
+1. TBD
 2. Column names is `seven` not `sevens` lol
 3. Make sure `limit 20` 
 4. TBD
