@@ -1,3 +1,25 @@
+# Lab 13: SQL
+
+## Announcements 
+
+- Scheme project due tomorrow (submit tonight for 1 EC)
+- HW09: Extended to Monday 
+  - if downloaded before Monday night, redownload it (latest version fixes some ok test bugs)
+- Course Evaluations due Sunday
+  - if 95% of students fill it out 1 EC
+- OH starts as early as 8am so you can potentially be on OH from 8am to 7pm today and tomorrow (minus lecture)
+
+## Lab
+
+- General: remember the semicolons!
+
+2. Column names is `seven` not `sevens` lol
+3. Make sure `limit 20` 
+4. TBD
+5. tbl.'7' to actually get column '7', check = 'True'
+6. Make sure to order time so that first student responded sooner than second
+
+
 # Lab 12: Iterators, Generators and Streams
 
 ## Announcements
