@@ -1,3 +1,64 @@
+# Lab 14: Final Review
+
+## Announcemments
+
+- Hw09/10 due tonight
+- Makup lab checkoffs today
+- Final Review Guerilla section tomorrow lecture
+- John DeNero guest lecture on Wednesday!
+- Exam Study Party Office Hours
+- Lab topical review on Wednesday, each lab will cover a particular topic
+- Final exam Thurday 5-8pm 
+
+## Lab
+
+1. No return statements!! (except possibly returning nothing) 
+  - This is supposed to be mutation
+2. Don't move the trees just the root values
+  - `Tree(1, [Tree(2, [Tree(3)]), Tree(4)]) -> Tree(1, [Tree(4, [Tree(3)]), Tree(2)])`
+3. Mint
+  - Make sure getting properties correctly (`Mint.current_year`, `self.cents`)
+  - `create(self, kind)` -> a **class** is passed in for second argument (this means do: `kind()` to get instance)
+  - Make sure to read directions for value of coin (it isn't just `return self.cents`)
+4. Accumulate
+  - Have dones this just in python
+  - Try doing this tail recursively too! (I personally found that one easier than the non tail recursive one)
+  - If a condition is `(= n 0)` that should signify something to you (Hint: you're decrementing `n`)
+5. how-many-dots
+  - Official solution has `(and (not (pair? (cdr s))) (not (null? (cdr s)))` I believe this is the same as `(number? (cdr s))`
+  - Solution I came up with:
+  ```scheme
+  (define (how-many-dots s)
+    (if (not (pair? s))
+            0
+            (+
+                  (how-many-dots (car s))
+                  (how-many-dots (cdr s))
+                  (if (number? (cdr s)) 1 0))
+            )
+  )
+  ```
+  Official:
+  ```scheme
+  (define (how-many-dots s)
+    (if (not (pair? s))
+      0
+     (+ (if (and (not (pair? (cdr s)))
+                  (not (null? (cdr s))))
+           1
+           0)
+         (how-many-dots (car s))
+         (how-many-dots (cdr s))))
+  )
+  ```
+  - The two solutions are essentially the same besides replacing the `and` with `number?` 
+6. Swap
+  - again done before but just in python
+  - 
+7. Eval/Apply
+  - Make sure you eval inside the function when you call it `(* x x)`
+8. 
+
 # Lab 13: SQL
 
 ## Announcements 
