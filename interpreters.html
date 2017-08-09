@@ -288,6 +288,243 @@ table tbody + tbody { border-top: 2px solid rgb(221, 221, 221); }
 </style>
 </head>
 <body class='typora-export' >
-<div  id='write'  class = 'is-node'><h1><a name='header-n0' class='md-header-anchor '></a>Interpreters</h1><h2><a name='header-n2' class='md-header-anchor '></a>So whats an interpreter?</h2><pre class='md-fences mock-cm' style='display:block;position:relative'>A program that accepts statements, executes them immediately and then outputs the result.</pre><p>At it&#39;s core these are the only 3 things an interpreter does</p><p><img src='./cs61a/input.gif' alt='input 8 into python interpreter' /></p><ol start='' ><li>Accepts input</li><li>Executes statement inputted</li><li>Outputs result</li></ol><p>An interpreter needs to loop through these three steps over and over to allow for more and more input (the <code>Python</code> interpreter doesn&#39;t stop after typing one thing). We call this the <code>Read-Eval-Print-Loop</code> <code>(REPL)</code></p><p><em>Note: an interpreter is likely to be implemented in a different language than which it interprets (example: scheme interpreter written in python)</em></p><h2><a name='header-n22' class='md-header-anchor '></a>REPL</h2><p>Each part of this loop can be further divided up:</p><ul><li><p><code>Read:</code> This is the part where the interpreter accepts an input</p><ul><li><code>Lexer:</code> Turns strings into list of &#39;tokens&#39;, small important pieces</li><li><code>Parser:</code> Takes the &#39;tokens&#39; and puts it into a format to make the job of the interpreter easier</li></ul></li><li><p><code>Eval:</code> This is the part where the interpreter does stuff with what was inputted</p><ul><li><code>Eval:</code> takes expressions and evaluates them according to specification of the language (may call <code>apply</code> to figure out what it may eval to)</li><li><code>Apply:</code> applies a function to the operands (may call <code>eval</code> to figure things out)</li></ul></li><li><p><code>Print:</code> This is where the interpreter displays the results to the user</p></li></ul><p>Pictorally:</p><p><img src='cs61a/REPL.png' alt='repl diagram' /></p><h2><a name='header-n53' class='md-header-anchor '></a>Read</h2><p>This is an example of the lexer/parser from the scheme project (pulled from lec 21):</p><p><img src='cs61a/lexerparser.png' alt='lexer/parser' /></p><h2><a name='header-n58' class='md-header-anchor '></a>Eval/Apply</h2><p>Follow the same steps as usual for call expression!</p><ol start='' ><li>Evaluate operator</li><li>Evaluate operand(s)</li><li>Apply operator to operand(s)</li></ol><h3><a name='header-n71' class='md-header-anchor '></a>Apply</h3><p>When we apply a function we follow the process we followed before when constructing environment diagrams:</p><ol start='' ><li>Create a new frame</li><li>Assign parameters to values</li><li>Evaluate the body of the function</li></ol><table><thead><tr><th style='text-align:center;' ></th><th style='text-align:center;' >Eval</th><th style='text-align:center;' >Apply</th></tr></thead><tbody><tr><td style='text-align:center;' >Base Cases:</td><td style='text-align:center;' >Primitive values</td><td style='text-align:center;' >Built-in primitive procedures</td></tr><tr><td style='text-align:center;' ></td><td style='text-align:center;' >Symbols</td><td style='text-align:center;' ></td></tr><tr><td style='text-align:center;' >Recursive Calls:</td><td style='text-align:center;' >eval(sub_expression) for special forms</td><td style='text-align:center;' >eval(body) of user-defined procedure</td></tr><tr><td style='text-align:center;' ></td><td style='text-align:center;' >eval(operator, operands) for call expressions</td><td style='text-align:center;' ></td></tr><tr><td style='text-align:center;' ></td><td style='text-align:center;' >apply(procedure, arguments)</td><td style='text-align:center;' ></td></tr><tr><td style='text-align:center;' ></td><td style='text-align:center;' ></td><td style='text-align:center;' ></td></tr></tbody></table><h2><a name='header-n113' class='md-header-anchor '></a>Problems</h2><p>What does lexer turn these into?</p><ol start='' ><li><pre class="md-fences md-end-block md-focus" lang="lisp"> <div class="CodeMirror cm-s-inner CodeMirror-wrap  "><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 69.7125px;"></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-bracket">(</span><span class="cm-number">1</span> <span class="cm-number">2</span> <span class="cm-number">4</span><span class="cm-bracket">)</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 29px;"></div></div></div></pre></li><li><pre class="md-fences md-end-block" lang="lisp"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-bracket">(</span><span class="cm-variable">define</span> <span class="cm-bracket">(</span><span class="cm-variable">f</span> <span class="cm-variable">x</span><span class="cm-bracket">)</span> <span class="cm-number">5</span><span class="cm-bracket">)</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 26px;"></div></div></div></pre></li></ol><p>What does the parser turn these into?</p><ol start='' ><li><pre class="md-fences md-end-block" lang="python"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;">[<span class="cm-string">'('</span>, <span class="cm-string">'+'</span>, <span class="cm-string">'1'</span>, <span class="cm-string">'2'</span>, <span class="cm-string">')'</span>]</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 26px;"></div></div></div></pre></li><li><pre class="md-fences md-end-block" lang="python"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;">[<span class="cm-string">'('</span>, <span class="cm-string">'1'</span>, <span class="cm-string">'('</span>, <span class="cm-string">'2'</span>, <span class="cm-string">')'</span>, <span class="cm-string">'3'</span>, <span class="cm-string">')'</span>]</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 26px;"></div></div></div></pre></li></ol><p>How many calls to scheme_eval/scheme_apply?</p><ol start='' ><li><pre class="md-fences md-end-block" lang="lisp		"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;">(define (f x) (* ((lambda () x)) 2))`</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 26px;"></div></div></div></pre></li><li><pre class="md-fences md-end-block" lang="lisp"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-bracket">((</span><span class="cm-variable">lambda</span> <span class="cm-bracket">(</span><span class="cm-variable">x</span> <span class="cm-variable">y</span><span class="cm-bracket">)</span> <span class="cm-bracket">(</span><span class="cm-variable">+</span> <span class="cm-bracket">(</span><span class="cm-variable">y</span> <span class="cm-number">2</span><span class="cm-bracket">)</span> <span class="cm-variable">x</span><span class="cm-bracket">))</span> <span class="cm-number">3</span> <span class="cm-variable">f</span><span class="cm-bracket">)</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 26px;"></div></div></div></pre></li><li><pre class="md-fences md-end-block" lang="lisp"> <div class="CodeMirror cm-s-inner CodeMirror-wrap       "><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;">(let ((f 4)</span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-tab">    </span>  (g f))</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-tab">    </span> (g (+ f (eval (define h ((lambda (a b) (* a b)) f 5)))))</span></pre><pre class=""><span style="padding-right: 0.1px;">)</span></pre><div class="" style="position: relative;"><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 130px;"></div></div></div></pre></li></ol></div>
+  <div id='write' class='is-node'>
+      <h1><a name='header-n0' class='md-header-anchor '></a>Interpreters</h1>
+      <h2><a name='header-n2' class='md-header-anchor '></a>So whats an interpreter?</h2><pre class='md-fences mock-cm' style='display:block;position:relative'>A program that accepts statements, executes them immediately and then outputs the result.</pre>
+      <p>At it&#39;s core these are the only 3 things an interpreter does</p>
+      <p><img src='./cs61a/input.gif' alt='input 8 into python interpreter' />
+      </p>
+      <ol start=''>
+          <li>Accepts input</li>
+          <li>Executes statement inputted</li>
+          <li>Outputs result</li>
+      </ol>
+      <p>An interpreter needs to loop through these three steps over and over to allow for more and more input (the <code>Python</code> interpreter doesn&#39;t stop after typing one thing). We call this the <code>Read-Eval-Print-Loop</code> <code>(REPL)</code>
+      </p>
+      <p><em>Note: an interpreter is likely to be implemented in a different language than which it interprets (example: scheme interpreter written in python)</em>
+      </p>
+      <h2><a name='header-n22' class='md-header-anchor '></a>REPL</h2>
+      <p>Each part of this loop can be further divided up:</p>
+      <ul>
+          <li>
+              <p><code>Read:</code> This is the part where the interpreter accepts an input</p>
+              <ul>
+                  <li><code>Lexer:</code> Turns strings into list of &#39;tokens&#39;, small important pieces</li>
+                  <li><code>Parser:</code> Takes the &#39;tokens&#39; and puts it into a format to make the job of the interpreter easier</li>
+              </ul>
+          </li>
+          <li>
+              <p><code>Eval:</code> This is the part where the interpreter does stuff with what was inputted</p>
+              <ul>
+                  <li><code>Eval:</code> takes expressions and evaluates them according to specification of the language (may call <code>apply</code> to figure out what it may eval to)</li>
+                  <li><code>Apply:</code> applies a function to the operands (may call <code>eval</code> to figure things out)</li>
+              </ul>
+          </li>
+          <li>
+              <p><code>Print:</code> This is where the interpreter displays the results to the user</p>
+          </li>
+      </ul>
+      <p>Pictorally:</p>
+      <p><img src='cs61a/REPL.png' alt='repl diagram' />
+      </p>
+      <h2><a name='header-n53' class='md-header-anchor '></a>Read</h2>
+      <p>This is an example of the lexer/parser from the scheme project (pulled from lec 21):</p>
+      <p><img src='cs61a/lexerparser.png' alt='lexer/parser' />
+      </p>
+      <h2><a name='header-n58' class='md-header-anchor '></a>Eval/Apply</h2>
+      <p>Follow the same steps as usual for call expression!</p>
+      <ol start=''>
+          <li>Evaluate operator</li>
+          <li>Evaluate operand(s)</li>
+          <li>Apply operator to operand(s)</li>
+      </ol>
+      <h3><a name='header-n71' class='md-header-anchor '></a>Apply</h3>
+      <p>When we apply a function we follow the process we followed before when constructing environment diagrams:</p>
+      <ol start=''>
+          <li>Create a new frame</li>
+          <li>Assign parameters to values</li>
+          <li>Evaluate the body of the function</li>
+      </ol>
+      <table>
+          <thead>
+              <tr>
+                  <th style='text-align:center;'></th>
+                  <th style='text-align:center;'>Eval</th>
+                  <th style='text-align:center;'>Apply</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td style='text-align:center;'>Base Cases:</td>
+                  <td style='text-align:center;'>Primitive values</td>
+                  <td style='text-align:center;'>Built-in primitive procedures</td>
+              </tr>
+              <tr>
+                  <td style='text-align:center;'></td>
+                  <td style='text-align:center;'>Symbols</td>
+                  <td style='text-align:center;'></td>
+              </tr>
+              <tr>
+                  <td style='text-align:center;'>Recursive Calls:</td>
+                  <td style='text-align:center;'>eval(sub_expression) for special forms</td>
+                  <td style='text-align:center;'>eval(body) of user-defined procedure</td>
+              </tr>
+              <tr>
+                  <td style='text-align:center;'></td>
+                  <td style='text-align:center;'>eval(operator, operands) for call expressions</td>
+                  <td style='text-align:center;'></td>
+              </tr>
+              <tr>
+                  <td style='text-align:center;'></td>
+                  <td style='text-align:center;'>apply(procedure, arguments)</td>
+                  <td style='text-align:center;'></td>
+              </tr>
+              <tr>
+                  <td style='text-align:center;'></td>
+                  <td style='text-align:center;'></td>
+                  <td style='text-align:center;'></td>
+              </tr>
+          </tbody>
+      </table>
+      <h2><a name='header-n113' class='md-header-anchor '></a>Problems</h2>
+      <p>What does lexer turn these into?</p>
+      <ol start=''>
+          <li><pre class="md-fences md-end-block md-focus" lang="lisp"> <div class="CodeMirror cm-s-inner CodeMirror-wrap  "><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 69.7125px;"></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre>
+  </div>
+  <div class="CodeMirror-measure"></div>
+  <div style="position: relative; z-index: 1;"></div>
+  <div class="CodeMirror-code">
+      <div class="CodeMirror-activeline" style="position: relative;">
+          <div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-bracket">(</span><span class="cm-number">1</span> <span class="cm-number">2</span> <span class="cm-number">4</span><span class="cm-bracket">)</span></span></pre>
+      </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div>
+  <div class="CodeMirror-gutters" style="display: none; height: 29px;"></div>
+  </div>
+  </div>
+  </pre>
+  </li>
+  <li><pre class="md-fences md-end-block" lang="lisp"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre>
+      </div>
+      <div class="CodeMirror-measure"></div>
+      <div style="position: relative; z-index: 1;"></div>
+      <div class="CodeMirror-code">
+          <div class="CodeMirror-activeline" style="position: relative;">
+              <div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-bracket">(</span><span class="cm-variable">define</span> <span class="cm-bracket">(</span><span class="cm-variable">f</span> <span class="cm-variable">x</span><span class="cm-bracket">)</span> <span class="cm-number">5</span><span class="cm-bracket">)</span></span></pre>
+          </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      <div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div>
+      <div class="CodeMirror-gutters" style="display: none; height: 26px;"></div>
+      </div>
+      </div>
+      </pre>
+  </li>
+  </ol>
+  <p>What does the parser turn these into?</p>
+  <ol start=''>
+      <li><pre class="md-fences md-end-block" lang="python"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre>
+          </div>
+          <div class="CodeMirror-measure"></div>
+          <div style="position: relative; z-index: 1;"></div>
+          <div class="CodeMirror-code">
+              <div class="CodeMirror-activeline" style="position: relative;">
+                  <div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;">[<span class="cm-string">'('</span>, <span class="cm-string">'+'</span>, <span class="cm-string">'1'</span>, <span class="cm-string">'2'</span>, <span class="cm-string">')'</span>]</span></pre>
+              </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          <div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div>
+          <div class="CodeMirror-gutters" style="display: none; height: 26px;"></div>
+          </div>
+          </div>
+          </pre>
+      </li>
+      <li><pre class="md-fences md-end-block" lang="python"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre>
+          </div>
+          <div class="CodeMirror-measure"></div>
+          <div style="position: relative; z-index: 1;"></div>
+          <div class="CodeMirror-code">
+              <div class="CodeMirror-activeline" style="position: relative;">
+                  <div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;">[<span class="cm-string">'('</span>, <span class="cm-string">'1'</span>, <span class="cm-string">'('</span>, <span class="cm-string">'2'</span>, <span class="cm-string">')'</span>, <span class="cm-string">'3'</span>, <span class="cm-string">')'</span>]</span></pre>
+              </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          <div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div>
+          <div class="CodeMirror-gutters" style="display: none; height: 26px;"></div>
+          </div>
+          </div>
+          </pre>
+      </li>
+  </ol>
+  <p>How many calls to scheme_eval/scheme_apply?</p>
+  <ol start=''>
+      <li><pre class="md-fences md-end-block" lang="lisp		"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre>
+          </div>
+          <div class="CodeMirror-measure"></div>
+          <div style="position: relative; z-index: 1;"></div>
+          <div class="CodeMirror-code">
+              <div class="CodeMirror-activeline" style="position: relative;">
+                  <div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;">(define (f x) (* ((lambda () x)) 2))`</span></pre>
+              </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          <div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div>
+          <div class="CodeMirror-gutters" style="display: none; height: 26px;"></div>
+          </div>
+          </div>
+          </pre>
+      </li>
+      <li><pre class="md-fences md-end-block" lang="lisp"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre>
+          </div>
+          <div class="CodeMirror-measure"></div>
+          <div style="position: relative; z-index: 1;"></div>
+          <div class="CodeMirror-code">
+              <div class="CodeMirror-activeline" style="position: relative;">
+                  <div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-bracket">((</span><span class="cm-variable">lambda</span> <span class="cm-bracket">(</span><span class="cm-variable">x</span> <span class="cm-variable">y</span><span class="cm-bracket">)</span> <span class="cm-bracket">(</span><span class="cm-variable">+</span> <span class="cm-bracket">(</span><span class="cm-variable">y</span> <span class="cm-number">2</span><span class="cm-bracket">)</span> <span class="cm-variable">x</span><span class="cm-bracket">))</span> <span class="cm-number">3</span> <span class="cm-variable">f</span><span class="cm-bracket">)</span></span></pre>
+              </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          <div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div>
+          <div class="CodeMirror-gutters" style="display: none; height: 26px;"></div>
+          </div>
+          </div>
+          </pre>
+      </li>
+      <li><pre class="md-fences md-end-block" lang="lisp"> <div class="CodeMirror cm-s-inner CodeMirror-wrap       "><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;">(let ((f 4)</span></pre>
+          </div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-tab">    </span>  (g f))</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-tab">    </span> (g (+ f (eval (define h ((lambda (a b) (* a b)) f 5)))))</span></pre><pre class=""><span style="padding-right: 0.1px;">)</span></pre>
+          <div class="" style="position: relative;"><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre>
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          <div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div>
+          <div class="CodeMirror-gutters" style="display: none; height: 130px;"></div>
+          </div>
+          </div>
+          </pre>
+      </li>
+  </ol>
+  </div>
 </body>
 </html>
