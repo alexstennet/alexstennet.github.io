@@ -4,10 +4,10 @@ Hi! My name is `Alex`, and I'm a TA for CS61A. I'm intending this page to act as
 
 **Section**
 
-- **Lab:** 3:30-5:00 *Soda 277*
-- **Discussion:** 3:30-5:00 *Evans 3*
-- **Office Hours:** 5:00-6:00 *Morgan 109*
+- **Lab:** Tue 3:30-5:00 *Soda 277*
+- **Discussion:** Thu 3:30-5:00 *Evans 3*
+- **Office Hours:** Thu 5:00-6:00 *Morgan 109*
 
 ## First Section!
 
-If you are intending on going to my lab/disc please fill out this form: 
+If you're intending to attend my section please fill out this form: https://goo.gl/forms/CuUUMreBdNvwMTy32
