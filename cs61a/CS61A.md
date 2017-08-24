@@ -11,3 +11,7 @@ Hi! My name is `Alex`, and I'm a TA for CS61A. I'm intending this page to act as
 ## First Section!
 
 If you're intending to attend my section please fill out this form: https://goo.gl/forms/CuUUMreBdNvwMTy32
+
+I'll be having 1-on-1s this Saturday sign up here: https://calendar.google.com/calendar/selfsched?sstoken=UVBmRUNFN1FoTGQ4fGRlZmF1bHR8MzhhZjZlMWRmNjk4MzVmOWNjNzhkNjRlNWVhMDk1MGE
+
+The 1-on-1s are so that I can get to know you guys more quickly, so sign up! I'm excited to meet you all!
