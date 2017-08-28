@@ -18,4 +18,4 @@ I'll be having 1-on-1s this Saturday sign up here: https://calendar.google.com/c
 
 The 1-on-1s are so that I can get to know you guys more quickly, so sign up! I'm excited to meet you all!
 
-For direction go to this pin: https://goo.gl/maps/qPzkHtgftHn
+For direction go to this pin: https://goo.gl/maps/UjiagWYtj9Q2
