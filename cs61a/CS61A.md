@@ -10,6 +10,14 @@ Hi! My name is `Alex`, and I'm a TA for CS61A. I'm intending this page to act as
 - **Discussion:** Thu 3:30-5:00 *Evans 3*
 - **Office Hours:** Thu 5:00-6:00 *Morgan 109*
 
+
+
+## Midterm Review
+
+Fill out this form: https://goo.gl/forms/kcNwJNmiW8KPUET83
+
+
+
 ## First Section!
 
 If you're intending to attend my section please fill out this form: https://goo.gl/forms/CuUUMreBdNvwMTy32
