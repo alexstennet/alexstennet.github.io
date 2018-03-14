@@ -80,7 +80,16 @@ def knapsack(items, weight):
   >>> knapsack([7,2,5,9], 13)
   12     # 7 + 5
   """
-  
+  if len(items) == 0 or weight == 0:
+        return 0
+
+  if items[0] > weight:
+    return knapsack(items[1:], weight)
+
+  with_0 = items[0] + knapsack(items[1:], weight - items[0])
+  without_0 = knapsack(items[1:], weight)
+
+  return max(with_0, without_0)
 ```
 
 ## Question 4
@@ -176,11 +185,12 @@ def tree_partitions(n):
     """
     assert n > 0
     def helper(n, m):
-        if ___________:
-            return _____________
+        if n == m:
+            return Tree(m)
         b = []
-        for k in _______________:
-          b += [helper(____,____)]
-        return ___________________________________
-    return Tree(0, [______________________________])
+        for k in range(1, min(n - m + 1, m + 1):
+          b += [helper(n - m, k)]
+        return Tree(m, b)
+    return Tree(0, [[helper(n, m) for m in range(1, n+1)]])
 ```
+
