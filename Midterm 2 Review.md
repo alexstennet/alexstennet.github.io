@@ -1,4 +1,4 @@
-# Midterm 1 Review
+# Midterm 2 Review
 
 ## Question 1
 
@@ -138,7 +138,7 @@ In other words, any path from root to leaf must sum to n
 
 Example: `tree_partitions(4)`
 
-![./tree.png](./tree.png)
+![./cs61a/tree.png](./cs61a/tree.png)
 
 ```python
 def tree_partitions(n):
@@ -161,3 +161,4 @@ def tree_partitions(n):
         return ___________________________________
     return Tree(0, [______________________________])
 ```
+
