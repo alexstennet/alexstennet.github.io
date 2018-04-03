@@ -1,5 +1,4 @@
 # alexstennet.github.io
 Repo for my personal webpage
 
-## TODO
-- [X] Get CNAME to work so can use alex.stennet.com instead of the github.io url
+You can access via this link: alexstennet.github.io
