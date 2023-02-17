@@ -3,329 +3,60 @@
   <head>
     <meta charset="utf-8">
     <title>Game</title>
-    <style>
-      .container {
-        position: absolute;
-        width: 10vh;
-        height: 10vh;
-      }
-      .container:hover > .letter {
-        width: 12vh;
-        height: 12vh;
-        margin: 0vh;
-        line-height: 12vh;
-      }
-      .container:active > .letter {
-        width: 10vh;
-        height: 10vh;
-        margin: 1vh;
-        line-height: 10vh;
-      }
-      .letter {
-        font-size: 5vh;
-        color: black;
-        position: absolute;
-        width: 10vh;
-        height: 10vh;
-        font-family: monospace;
-        text-align: center;
-        line-height: 10vh;
-        vertical-align: middle;
-        margin: 1vh;
-        background: #e6e6e6;
-        cursor: default;
-        user-select: none;
-        border-radius: 2vh;
-      }
-
-      .container:nth-of-type(1) {
-        margin-left: 40vh;
-        margin-top: 40vh;
-      }
-      .container:nth-of-type(1) > .letter {
-        background: #f7da21;
-      }
-      .container:nth-of-type(2) {
-        margin-left: 25vh;
-        margin-top: 40vh;
-      }
-      .container:nth-of-type(3) {
-        margin-left: 32.5vh;
-        margin-top: 27vh;
-      }
-      .container:nth-of-type(4) {
-        margin-left: 47.5vh;
-        margin-top: 27vh;
-      }
-      .container:nth-of-type(5) {
-        margin-left: 55vh;
-        margin-top: 40vh;
-      }
-      .container:nth-of-type(6) {
-        margin-left: 32.5vh;
-        margin-top: 53vh;
-      }
-      .container:nth-of-type(7) {
-        margin-left: 47.5vh;
-        margin-top: 53vh;
-      }
-      #entry {
-        position: absolute;
-        font-family: monospace;
-        text-align: center;
-        font-size: 5vh;
-        margin-left: 6vh;
-        margin-top: 20vh;
-        width: 80vh;
-        text-decoration-line: underline
-      }
-      button {
-        background: #e6e6e6;
-        border: none;
-        font-size: 3vh;
-        border-radius: 2vh;
-        width: 20vh;
-        height: 5vh;
-        margin: 2vh;
-      }
-      button:active {
-        width: 19vh;
-        height: 4vh;
-        margin: 2.5vh;
-      }
-      #buttons {
-        position: absolute;
-        margin-left: 22vh;
-        margin-top: 70vh;
-      }
-      #stat {
-        position: absolute;
-        font-family: monospace;
-        font-size: 5vh;
-        width: 80vh;
-        margin-left: 90vh;
-        margin-top: 5vh;
-      }
-      #words {
-        font-family: monospace;
-        font-size: 5vh;
-        position: absolute;
-        height: 60vh;
-        width: 40vh;
-        background: #e6e6e6;
-        margin-left: 90vh;
-        margin-top: 15vh;
-        border-radius: 2vh;
-        white-space: pre-line;
-        padding: 5vh;
-        overflow-y: auto;
-      }
-      .center_letter {
-        color: #f7da21;
-      }
-      .noncenter_letter {
-        color: black;
-      }
-      .non_letter {
-        color: #e6e6e6;
-      }
-      #popup {
-        border-radius: 1vh;
-        position: absolute;
-        background: black;
-        color: white;
-        padding: 1vh;
-        font-family: monospace;
-        font-size: 2vh;
-        width: 30vh;
-        text-align: center;
-        margin-top: 10vh;
-        margin-left: 30vh;
-        display: none;
-      }
-    </style>
+    <link rel="stylesheet" href="./index.css">
     <script type="text/javascript" src="./words.js"></script>
-    <script type="text/javascript">
-      var alphabet = 'abcdefghijklmnopqrstuvwxyz';
-      var letters = [];
-      var valid_words = [];
-      var found_words = [];
-
-      var fade_timer = null;
-      var wait_timer = null;
-
-      window.onload = function() {
-        for (let i = 0; i < 7; i++) {
-          let val = Math.floor(Math.random() * alphabet.length);
-          while (letters.indexOf(val) != -1) {
-            val = Math.floor(Math.random() * alphabet.length);
-          }
-          letters.push(val);
-        }
-        for (let i = 0; i < 7; i++) {
-          letters[i] = alphabet[letters[i]];
-        }
-
-
-        let cells = document.getElementsByClassName('letter');
-        for (let i = 0; i < 7; i++) {
-          cells[i].textContent = letters[i].toUpperCase();
-        }
-
-        for (let i = 0; i < words.length; i++) {
-          let valid = true;
-          let word = words[i];
-          for (let j = 0; j < word.length; j++) {
-            if (letters.indexOf(word[j]) == -1) {
-              valid = false;
-            }
-          }
-          if (word.length > 3 && word.indexOf(letters[0]) != -1 && valid) {
-            valid_words.push(word);
-          }
-        }
-        document.getElementById("total").textContent = valid_words.length.toString();
-      };
-
-      function addLetter(c) {
-        let entry = document.getElementById("entry");
-        if (entry.children.length == 28) {
-          return;
-        }
-        let span = document.createElement('span');
-        span.textContent = c.toUpperCase();
-        if (letters[0] == c) {
-          span.classList.add('center_letter');
-        } else if (letters.indexOf(c) != -1) {
-          span.classList.add('noncenter_letter');
-        } else {
-          span.classList.add('non_letter');
-        }
-        entry.appendChild(span);
-      }
-
-      window.onkeydown = function(e) {
-        let key = e['key'].toLowerCase();
-        if (alphabet.indexOf(key) != -1) {
-          addLetter(key);
-        }
-        if (key == 'backspace') {
-          d();
-        }
-        if (key == 'enter') {
-          s();
-        }
-      }
-
-      function letterClicked(e) {
-        addLetter(e.textContent.trim());
-      }
-      function s() {
-          let cur = document.getElementById("entry").textContent;
-          if (cur == '') {
-            return;
-          }
-          document.getElementById("entry").textContent = '';
-
-          cur = cur.toLowerCase();
-          if (cur.length <= 3) {
-            showPopup("Must contain at least 4 letters");
-            return;
-          }
-          if (cur.indexOf(letters[0]) == -1) {
-            showPopup("Must contain center letter");
-            return;
-          }
-          if (found_words.indexOf(cur) != -1) {
-            showPopup('Already found');
-            return;
-          }
-          for (let i = 0; i < cur.length; i++) {
-            if (letters.indexOf(cur[i]) == -1) {
-              showPopup('Bad letters');
-              return;
-            }
-          }
-          if (valid_words.indexOf(cur) == -1) {
-            showPopup('Not in word list');
-            return;
-          }
-
-          found_words.push(cur);
-          let words_div = document.getElementById("words");
-          if (words_div.textContent.length != 0) {
-            cur = '\n' + cur;
-          }
-
-          words_div.textContent += cur;
-          let cnt = Number(document.getElementById("count").textContent);
-          document.getElementById("count").textContent = (cnt + 1).toString();
-      }
-      function d() {
-        let children = document.getElementById("entry").children;
-        if (children.length == 0) {
-          return;
-        }
-        document.getElementById("entry").removeChild(children[children.length - 1])
-      }
-
-      function showPopup(msg) {
-        if (wait_timer != null) {
-          clearTimeout(wait_timer);
-        }
-        if (fade_timer != null) {
-          clearInterval(fade_timer);
-        }
-
-        let popup = document.getElementById('popup');
-        popup.textContent = msg;
-        popup.style.display = 'block';
-        popup.style.opacity = 1;
-        popup.style.filter = 'alpha(opacity=' + 100 + ")";
-
-        wait_timer = setTimeout(function() {
-          let op = 1;
-          fade_timer = setInterval(function() {
-            if (op <= 0.1) {
-              clearInterval(fade_timer);
-              popup.style.display = 'none';
-            }
-            popup.style.opacity = op;
-            popup.style.filter = 'alpha(opacity=' + op * 100 + ")";
-            op -= op * 0.1;
-          }, 50);
-        }, 500);
-      }
-    </script>
+    <script type="text/javascript" src="./index.js"></script>
   </head>
   <body>
-    <div class='container' onclick="letterClicked(this)">
-      <div class='letter'>A</div>
-    </div>
-    <div class='container' onclick="letterClicked(this)">
-      <div class='letter'>B</div>
-    </div>
-    <div class='container' onclick="letterClicked(this)">
-      <div class='letter'>C</div>
-    </div>
-    <div class='container' onclick="letterClicked(this)">
-      <div class='letter'>D</div>
-    </div>
-    <div class='container' onclick="letterClicked(this)">
-      <div class='letter'>E</div>
-    </div>
-    <div class='container' onclick="letterClicked(this)">
-      <div class='letter'>F</div>
-    </div>
-    <div class='container' onclick="letterClicked(this)">
-      <div class='letter'>G</div>
+    <div id='containers'>
+      <div class='container' onclick="letterClicked(this)">
+        <div class='letter'>A</div>
+      </div>
+      <div class='container' onclick="letterClicked(this)">
+        <div class='letter'>B</div>
+      </div>
+      <div class='container' onclick="letterClicked(this)">
+        <div class='letter'>C</div>
+      </div>
+      <div class='container' onclick="letterClicked(this)">
+        <div class='letter'>D</div>
+      </div>
+      <div class='container' onclick="letterClicked(this)">
+        <div class='letter'>E</div>
+      </div>
+      <div class='container' onclick="letterClicked(this)">
+        <div class='letter'>F</div>
+      </div>
+      <div class='container' onclick="letterClicked(this)">
+        <div class='letter'>G</div>
+      </div>
     </div>
     <div id='entry'></div>
     <div id="buttons">
-      <button type="button" onclick="s()">Submit</button><button type="button" onclick="d()">Delete</button>
+      <div><button type="button" onclick="s()">Submit</button><button type="button" onclick="d()">Delete</button></div>
+      <div><button type="button" id="cycle" onclick="cycle()">⭮</button></div>
     </div>
     <div id='stat'>Total:<span id="total">0</span>, Found:<span id="count">0</span></div>
     <div id='words'></div>
-    <div id='popup'>Must use center word</div>
+    <div id='popup'></div>
+    <div id='show_hint' onclick='showHints()'>Hints</div>
+    <div id='show_solution' onclick='showSolutions()'>Solutions</div>
+    <div id='hint_overlay'>
+      <div class='overlay' onclick='hideHints()'></div>
+      <div id='hint_cancel' onclick='hideHints()'>✕</div>
+      <div id='hints'>
+        Letters:<span id='hint_letters'></span>&nbsp;&nbsp;&nbsp;
+        Total: <span id='hint_total'></span>&nbsp;&nbsp;&nbsp;
+        Found: <span id='hint_found'></span>
+        <div>
+          <table id='hint_grid'></table>
+        </div>
+      </div>
+    </div>
+    <div id='solution_overlay'>
+      <div class='overlay' onclick='hideSolutions()'></div>
+      <div id='solution_cancel' onclick='hideSolutions()'>✕</div>
+      <div id='solutions'><b>Solutions:</b><p id='solution_list'></p></div>
+    </div>
   </body>
 </html>

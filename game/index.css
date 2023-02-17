@@ -1,0 +1,262 @@
+body {
+  margin: 0;
+  font-family: monospace;
+  font-size: 5vh;
+}
+.container {
+  position: absolute;
+  width: 10vh;
+  height: 10vh;
+}
+.container:hover > .letter {
+  width: 12vh;
+  height: 12vh;
+  margin: 0vh;
+  line-height: 12vh;
+}
+.container:active > .letter {
+  width: 10vh;
+  height: 10vh;
+  margin: 1vh;
+  line-height: 10vh;
+}
+.letter {
+  color: black;
+  position: absolute;
+  width: 10vh;
+  height: 10vh;
+  text-align: center;
+  line-height: 10vh;
+  vertical-align: middle;
+  margin: 1vh;
+  background: #e6e6e6;
+  cursor: default;
+  user-select: none;
+  border-radius: 2vh;
+}
+
+.container:nth-of-type(1) {
+  margin-left: 40vh;
+  margin-top: 40vh;
+}
+.container:nth-of-type(1) > .letter {
+  background: #f7da21;
+}
+.container:nth-of-type(2) {
+  margin-left: 25vh;
+  margin-top: 40vh;
+}
+.container:nth-of-type(3) {
+  margin-left: 32.5vh;
+  margin-top: 27vh;
+}
+.container:nth-of-type(4) {
+  margin-left: 47.5vh;
+  margin-top: 27vh;
+}
+.container:nth-of-type(5) {
+  margin-left: 55vh;
+  margin-top: 40vh;
+}
+.container:nth-of-type(6) {
+  margin-left: 32.5vh;
+  margin-top: 53vh;
+}
+.container:nth-of-type(7) {
+  margin-left: 47.5vh;
+  margin-top: 53vh;
+}
+#entry {
+  position: absolute;
+  text-align: center;
+  margin-left: 6vh;
+  margin-top: 20vh;
+  width: 80vh;
+  text-decoration-line: underline
+}
+button {
+  background: #e6e6e6;
+  border: none;
+  font-size: 3vh;
+  border-radius: 2vh;
+  width: 20vh;
+  height: 5vh;
+  margin: 2vh;
+}
+button:active {
+  width: 19vh;
+  height: 4vh;
+  margin: 2.5vh;
+}
+#cycle {
+  border-radius: 5vh;
+  width: 5vh;
+  height: 5vh;
+  margin-left: calc(50% - 5vh/2);
+}
+#cycle:active {
+  width: 4vh;
+  height: 4vh;
+  margin-left: calc(50% - 4vh/2);
+  font-size: 2vh;
+}
+#buttons {
+  position: absolute;
+  margin-left: 22vh;
+  margin-top: 70vh;
+}
+#stat {
+  position: absolute;
+  width: 80vh;
+  margin-left: 90vh;
+  margin-top: 5vh;
+}
+#words {
+  position: absolute;
+  height: 60vh;
+  width: 40vh;
+  background: #e6e6e6;
+  margin-left: 90vh;
+  margin-top: 15vh;
+  border-radius: 2vh;
+  white-space: pre-line;
+  padding: 5vh;
+  overflow-y: auto;
+}
+.center_letter {
+  color: #f7da21;
+}
+.noncenter_letter {
+  color: black;
+}
+.non_letter {
+  color: #e6e6e6;
+}
+#popup {
+  border-radius: 1vh;
+  position: absolute;
+  background: black;
+  color: white;
+  padding: 1vh;
+  font-size: 2vh;
+  width: 30vh;
+  text-align: center;
+  margin-top: 10vh;
+  margin-left: 30vh;
+  display: none;
+}
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  background: black;
+}
+#hint_overlay {
+  display: none;
+}
+
+#show_hint {
+  position: absolute;
+  margin-left: calc(100vw - 16vh);
+  width: 14vh;
+  text-align: right;
+  text-decoration: underline;
+  color: #e6e6e6;
+  padding-right: 2vh;
+  user-select: none;
+  cursor: pointer;
+}
+
+#show_solution {
+  position: absolute;
+  margin-left: calc(100vw - 26vh);
+  margin-top: 92vh;
+  width: 24vh;
+  height: 6vh;
+  text-align: right;
+  text-decoration: underline;
+  color: #e6e6e6;
+  padding-right: 2vh;
+  user-select: none;
+  cursor: pointer;
+}
+
+#hint_cancel {
+  position: absolute;
+  color: darkgray;
+  width: 10vh;
+  height: 10vh;
+  font-size: 7vh;
+  text-align: center;
+  line-height: 10vh;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 2vh;
+  margin-left: calc(100vw - 12vh);
+  margin-top: 2vh;
+  user-select: none;
+}
+#hint_cancel:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+#hints {
+  position: absolute;
+  width: calc(100vw - 10vh*2 - 10vh);
+  height: 70vh;
+  margin-left: 10vh;
+  margin-top: 10vh;
+  background: white;
+  border-radius: 2vh;
+  padding: 5vh;
+}
+table {
+  margin: auto;
+  text-align: center;
+  table-layout: fixed;
+}
+td {
+  width: 5vh;
+  padding: 0.5vh 1vh;
+}
+tr:first-child, tr:last-child, td:first-child, td:last-child {
+  font-weight: bold;
+}
+
+#solution_overlay {
+  display: none;
+}
+
+#solution_cancel {
+  position: absolute;
+  color: darkgray;
+  width: 10vh;
+  height: 10vh;
+  font-size: 7vh;
+  text-align: center;
+  line-height: 10vh;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 2vh;
+  margin-left: calc(100vw - 12vh);
+  margin-top: 2vh;
+  user-select: none;
+}
+#solution_cancel:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+#solutions {
+  position: absolute;
+  width: calc(100vw - 40vh*2 - 10vh);
+  height: 70vh;
+  margin-left: 40vh;
+  margin-top: 10vh;
+  background: white;
+  border-radius: 2vh;
+  padding: 5vh;
+  overflow-y: auto;
+}
+#solution_list {
+  margin: 0;
+  white-space: pre-line;
+}
