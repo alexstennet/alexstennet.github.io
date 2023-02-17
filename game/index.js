@@ -39,6 +39,7 @@ function setup() {
       }
     }
   }
+  valid_words.sort()
   document.getElementById("total").textContent = valid_words.length.toString();
 
   let hint_letters = document.getElementById("hint_letters");
@@ -214,12 +215,18 @@ function s() {
     }
 
     found_words.push(cur);
+    found_words.sort();
+
     let words_div = document.getElementById("words");
-    if (words_div.textContent.length != 0) {
-      cur = '\n' + cur;
+    words_div.textContent = '';
+
+    for (let i = 0; i < found_words.length; i++) {
+      if (i != 0) {
+        words_div.textContent += '\n';
+      }
+      words_div.textContent += found_words[i];
     }
 
-    words_div.textContent += cur;
     let cnt = Number(document.getElementById("count").textContent);
     document.getElementById("count").textContent = (cnt + 1).toString();
     document.getElementById('hint_found').textContent = (cnt + 1).toString();
